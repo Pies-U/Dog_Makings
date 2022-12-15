@@ -188,6 +188,7 @@ while True:
     # Scan
 
     elif command == "Scan":
+        print("")
         for file in os.listdir():
             if file == "EncDec.py":
                 continue
@@ -195,7 +196,10 @@ while True:
                 continue
             if os.path.isfile(file):
                 if file.endswith(".txt"):
-                    files.append(file)
+                    if file in files:
+                        pass
+                    else:
+                        files.append(file)
             else:
                 continue
         print("Found files:")
