@@ -1,2 +1,2 @@
 # Dog_Makings
-everything and nothinggood luck - Me 15.12.2022
+everything and nothing good luck - Me 15.12.2022
