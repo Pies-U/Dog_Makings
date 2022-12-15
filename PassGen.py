@@ -16,4 +16,3 @@ def genpass(size):
 
 
 print(genpass(15))
-    
