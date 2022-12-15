@@ -1,6 +1,3 @@
-from random import shuffle
-
-
 def genpass(size):
     # Imports
     import random
@@ -14,6 +11,7 @@ def genpass(size):
     while size > 1:
         password += random.choice(chars)
         size -= 1
+        random.shuffle(password)
 
     # Returns    
     return password
