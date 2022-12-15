@@ -1,8 +1,7 @@
-def genpass(size):
-    # Imports
-    import random
-    import string
+import random
+import string
 
+def genpass(size):
     # Defines
     password = ""
     chars = list(string.ascii_letters+string.digits+string.punctuation)
@@ -11,7 +10,6 @@ def genpass(size):
     while size > 1:
         password += random.choice(chars)
         size -= 1
-        random.shuffle(password)
 
     # Returns    
     return password
