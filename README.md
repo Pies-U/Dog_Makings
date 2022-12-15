@@ -1,3 +1,2 @@
 # Dog_Makings
-everything and nothing
-Every project in branch good luck - Me 15.12.2022
+everything and nothinggood luck - Me 15.12.2022
