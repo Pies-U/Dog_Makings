@@ -1,4 +1,5 @@
 from tkinter import *
+import time
 root = Tk()
 root.geometry("500x300")
 
@@ -7,10 +8,20 @@ counter = 0
 ldata = IntVar()
 pompki = IntVar()
 powod = StringVar()
+lerror = StringVar()
 
 
 def Error(message):
-    print(message)
+    time.sleep(0.1)
+    lerror.set(str(message))
+    time.sleep(0.5)
+    print(lerror.get())
+
+def ErrorCancel():
+    time.sleep(0.5)
+    print("error cancel active")
+    lerror.set("")
+
 
 def LabelAdd(value):
     x = ldata.get()
@@ -35,6 +46,7 @@ def FormSubmit():
         LabelAdd(pompkiTemp)
         print(powodTemp)
         print(pompkiTemp)
+        ErrorCancel()
     
     
 
@@ -66,7 +78,9 @@ l4 = Label(root, text="Pompki:").grid(row=3, column=3)
 
 l5 = Label(root, text="Powód:").grid(row=4, column=3)
 
-l4 = Label(root, text="Max 20").grid(row=3, column=5)
+l6 = Label(root, text="Max 20").grid(row=3, column=5)
+
+l7 = Label(root, textvariable=lerror).grid(row=5, column=3)
 
 #Entries
 entry1 = Entry(root, textvariable=pompki).grid(row=3, column=4) #Pompki
