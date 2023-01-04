@@ -2,7 +2,7 @@ from tkinter import *
 import time
 import os
 root = Tk()
-root.geometry("500x300")
+root.geometry("420x120")
 
 emptyStr = ""
 counter = 0
@@ -11,12 +11,27 @@ pompki = IntVar()
 powod = StringVar()
 lerror = StringVar()
 
+try:
+    logFile = open("C:/Log.txt", "x")
+    logFile.close()
 
-with open("C:/Log.txt", "w") as Log:
-    Log.write(f'Operational log of pushup counter from: ' + str(time.asctime()))
-    Log.write(os.linesep)
-    Log.write("#LOG START#")
-    print("New LOG Created")
+except FileExistsError:
+    pass
+
+with open("C:/Log.txt", "r") as Log:
+    if Log.read() is not emptyStr:
+        with open("C:/Log.txt", "a") as Log:
+            Log.write(os.linesep)
+            Log.write(os.linesep)
+            Log.write(os.linesep)
+            Log.write(f'#NEW LOG# ' + str(time.asctime()))
+            Log.write(os.linesep)
+    else:
+        with open("C:/Log.txt", "a") as Log:
+            Log.write(f'Operational log of pushup counter from: ' + str(time.asctime()))
+            Log.write(os.linesep)
+            Log.write("#LOG START#")
+            print("New LOG Created")
 
 
 def AddToLog(func_name):
@@ -35,14 +50,17 @@ def ErrorCancel():
     time.sleep(0.5)
     print("error cancel active")
     lerror.set("")
+    AddToLog("Error Cancel Active") 
 
 
 def LabelAdd(value):
     x = ldata.get()
     ldata.set(x+value)
+    AddToLog("Added to label Pompki " + str(value)) 
 
 def LabelSet(value):
     ldata.set(value)
+    AddToLog("Set new label for Pompki " + str(value)) 
 
 def FormSubmit():
     #Import Form
@@ -61,6 +79,7 @@ def FormSubmit():
         print(powodTemp)
         print(pompkiTemp)
         ErrorCancel()
+        AddToLog(f"Subbmited Add Form For " + str(pompkiTemp) + " with " + powodTemp) 
     
     
 #FrontEnd
