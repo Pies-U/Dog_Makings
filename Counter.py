@@ -2,7 +2,14 @@ from tkinter import *
 import time
 import os
 root = Tk()
-root.geometry("420x120")
+root.title("PushUp Counter")
+root.iconbitmap("./CounterPyFiles/icon.ico")   
+root.geometry("430x130")
+
+#ToDo
+#Input z klawiatury
+#Grafika
+#Gui
 
 emptyStr = ""
 counter = 0
@@ -18,21 +25,17 @@ try:
 except FileExistsError:
     pass
 
-with open("C:/Log.txt", "r") as Log:
-    if Log.read() is not emptyStr:
-        with open("C:/Log.txt", "a") as Log:
-            Log.write(os.linesep)
-            Log.write(os.linesep)
-            Log.write(os.linesep)
-            Log.write(f'#NEW LOG# ' + str(time.asctime()))
-            Log.write(os.linesep)
-    else:
-        with open("C:/Log.txt", "a") as Log:
-            Log.write(f'Operational log of pushup counter from: ' + str(time.asctime()))
-            Log.write(os.linesep)
-            Log.write("#LOG START#")
-            print("New LOG Created")
 
+with open("C:/Log.txt", "w") as Log:
+    Log.write(f'Operational log of pushup counter from: ' + str(time.asctime()))
+    Log.write(os.linesep)
+    Log.write("#LOG START#")
+
+
+
+def unmap(event):
+    if event.widget is root:
+        root.deiconify()
 
 def AddToLog(func_name):
     with open("C:/Log.txt", "a") as Log:
@@ -113,4 +116,7 @@ l7 = Label(root, textvariable=lerror).grid(row=5, column=3)
 entry1 = Entry(root, textvariable=pompki).grid(row=3, column=4) #Pompki
 entry2 = Entry(root, textvariable=powod).grid(row=4, column=4) #Powód
 
+#root.protocol('WM_DELETE_WINDOW', lambda: None)  # prevent closing
+root.bind('<Unmap>', unmap)  # redisplay window when it's minimized
+root.resizable(False, False)
 root.mainloop()
