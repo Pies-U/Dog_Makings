@@ -7,9 +7,13 @@ root.title("PushUp Counter")
 root.iconbitmap("./CounterPyFiles/icon.ico")   
 root.geometry("430x130")
 
-#ToDo
+#ToDo V2
 #Grafika
 #Gui
+#LogOnSite
+
+#ToDo V3
+#Hud
 
 emptyStr = ""
 counter = 0
