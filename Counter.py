@@ -1,22 +1,24 @@
 from tkinter import *
 import time
 import os
+import keyboard
 root = Tk()
 root.title("PushUp Counter")
 root.iconbitmap("./CounterPyFiles/icon.ico")   
 root.geometry("430x130")
 
 #ToDo
-#Input z klawiatury
 #Grafika
 #Gui
 
 emptyStr = ""
 counter = 0
 ldata = IntVar()
-pompki = IntVar()
+pompki = IntVar() 
 powod = StringVar()
 lerror = StringVar()
+
+
 
 try:
     logFile = open("C:/Log.txt", "x")
@@ -55,7 +57,6 @@ def ErrorCancel():
     lerror.set("")
     AddToLog("Error Cancel Active") 
 
-
 def LabelAdd(value):
     x = ldata.get()
     ldata.set(x+value)
@@ -83,8 +84,16 @@ def FormSubmit():
         print(pompkiTemp)
         ErrorCancel()
         AddToLog(f"Subbmited Add Form For " + str(pompkiTemp) + " with " + powodTemp) 
-    
-    
+
+def HotKeyStroke(Amount):
+    if Amount == 1:
+        LabelAdd(1)
+        Type = "ctrl+alt+p"
+    elif Amount == 5:
+        LabelAdd(5)
+        Type = "ctrl+alt+l"
+    AddToLog(f"HotKeyStroke "+str(Amount)+" "+Type+" "+str(time.asctime()))
+ 
 #FrontEnd
 
 #Buttons
@@ -119,4 +128,6 @@ entry2 = Entry(root, textvariable=powod).grid(row=4, column=4) #Powód
 #root.protocol('WM_DELETE_WINDOW', lambda: None)  # prevent closing
 root.bind('<Unmap>', unmap)  # redisplay window when it's minimized
 root.resizable(False, False)
+keyboard.add_hotkey("ctrl+alt+p",lambda: HotKeyStroke(1))
+keyboard.add_hotkey("ctrl+alt+l",lambda: HotKeyStroke(5))
 root.mainloop()
