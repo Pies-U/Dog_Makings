@@ -1,14 +1,15 @@
 from tkinter import *
 import time
-import os
 import keyboard
+import os
 root = Tk()
 root.title("PushUp Counter")
-root.iconbitmap("./CounterPyFiles/icon.ico")   
+#root.iconbitmap("C:/icon.ico")   
 root.geometry("430x130")
 
 #ToDo V2
 #Grafika
+#Logo
 #Gui
 #LogOnSite
 
