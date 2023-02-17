@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Camino O Clock</title>
+    
+    <script>
+        var countDownDate = new Date("Feb 18, 2023 14:30:30").getTime();
+        
+
+        var x = setInterval(function() {
+        
+
+          var now = new Date().getTime();
+        
+
+          var distance = countDownDate - now;
+        
+
+          var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+
+          document.getElementById("cuntdown").innerHTML = days + "d " + hours + "h "
+          + minutes + "m " + seconds + "s ";
+        
+
+          if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("demo").innerHTML = "Teoretycznie juz powinniśmy oglądać";
+          }
+        }, 1000);
+        </script>
+
+    <style>      
+        p.text_top{
+        font-family: 'Courier New', Courier, monospace;
+        color: white;
+        text-align: center;
+        margin: auto;
+        width: 100%;
+        margin-top: 7%;
+        font-size: 40px;
+       }
+
+       p.text_mid{
+        font-family: 'Courier New', Courier, monospace;
+        color: white;
+        text-align: center;
+        margin: auto;
+        width: 100%;
+        font-size: 40px;
+        margin-top: 1%;
+       }
+
+       img.img_mid{
+        margin: auto;
+        width: 100%;
+        margin-top: 3%;
+        width: 15%;
+        text-align: center;
+        border-radius: 50%;
+        display: flex;
+       }
+
+    </style>
+</head>
+<body style="width: 100%; height: 100%; background: rgb(2,0,36); background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);border: 0px; margin: 0;">
+    <p class="text_top"><b>Zostało</b></p>
+    <p class="text_mid"><span id="cuntdown">Loading...</span></p>
+    <p class="text_mid">i</p>
+    <p class="text_mid">obejzymy</p>
+    <p class="text_mid"><b>El Camino</b></p>
+    <img class="img_mid" src="/ElCaminoOClockFiles/jessie.png" alt="Picture of jessie pinkman">    
+</body> 
+</html>
