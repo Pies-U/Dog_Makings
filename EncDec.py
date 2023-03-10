@@ -1,11 +1,13 @@
 import os
 from cryptography.fernet import Fernet
 import time
+import sys
 
 # Defines and lists
 files = []
 empty = []
 key = 0
+args = sys.argv
 
 # Startup
 
@@ -70,9 +72,8 @@ while True:
     print("")
     command = input("> ")
 
-
     # Key Creation & Handling
-    if command == "GenKey":
+    if command == "genkey":
         with open("C:/lock.key", "rb") as thekey:
             key_content = str(thekey.read())
             if '' or '' or 'KEY-HAS-BEEN-DELETED' in key_content:
@@ -84,7 +85,7 @@ while True:
                 print("KEY IS ALL READY GENERATED USE DelKey TO DELETE IT")
 
     # File encryption
-    elif command == "Encrypt":
+    elif command == "encrypt":
         if files == empty:
             print("0 files found - Aborting encryption")
         
@@ -100,7 +101,7 @@ while True:
             print("Successfully Encrypted Files")
 
     # File Decryption
-    elif command == "Decrypt":
+    elif command == "decrypt":
         with open("C:/lock.key", "rb") as dec_key:
             key = dec_key.read()
         for file in files:
@@ -112,14 +113,14 @@ while True:
         print("Succesfully Decrypted Files")
 
     # DelKey
-    elif command == "DelKey":
+    elif command == "delkey":
         print("")
         print("WARNING DELETING A KEY")
         print("WITHOUT IT DECRYPTION WILL BE IMPOSSIBLE")
         print("Are you sure you want to proceed?")
         print("Y or n")
         print("")
-        if input("> ") == "Y":
+        if input("> ") == "Y" or "y":
             with open("C:/lock.key", "wb") as thekey:
                 thekey.write(bytes("KEY-HAS-BEEN-DELETED", encoding="ascii"))
             print("")
@@ -127,24 +128,25 @@ while True:
         else:
             print("Key Deletion Aborted")
 
-    # Cd
-    elif command == "cd":
-        whereto = ""
-        while True:
-            print("Current Dir " + os.getcwd())
-            whereto = input("Cd > ")
-            if whereto == "ls":
-                print(os.listdir())
-            elif whereto == "Quit":
-                break
-            else:
-                try:
-                    os.chdir(whereto)
-                except:
-                    print("")
-                    print("Error - Falling Back")
-                    continue
-       
+    #  File System
+    elif command == "ls":
+        print(os.listdir())
+    
+    elif command == "cd" and len(command) > 1:
+        command_list = command.split()
+        if len(command_list) < 2:
+            # no directory provided
+            print("Usage: cd \"directory name\"")
+            continue
+        directory = command_list[1]
+        try:
+            os.chdir(directory)
+        except OSError:
+            print("Didnt find that reverting")
+
+
+
+
     elif command == "Help":
         print("")
         print("GenKey - to generate key")
@@ -156,35 +158,9 @@ while True:
         print("")
 
     # Quit
-    elif command == "Quit":
+    elif command == "quit":
         break
-    
-    # Debug Commands
-    elif command == "Debug":
-        with open("C:/lock.key", "rb") as thekey:
-            key_content = str(thekey.read())
-            print(key_content)
-            if 'KEY-HAS-BEEN-DELETED' in key_content:
-                print("Debug5")
 
-    # Forcegen
-
-    elif command == "ForceGen":
-        print("")
-        print("WARNING OVERWRITING A KEY")
-        print("WITHOUT IT DECRYPTION WILL BE IMPOSSIBLE")
-        print("Are you sure you want to proceed?")
-        print("Y or n")
-        print("")
-        if input("> ") == "Y":
-            key = Fernet.generate_key()
-            with open("C:/lock.key", "wb") as thekey:
-                thekey.write(key)
-            print("")
-            print("Forcefully Overwrited The Key")
-        else:
-            print("Key Overwrition Aborted")
-    
     # Scan
 
     elif command == "Scan":
