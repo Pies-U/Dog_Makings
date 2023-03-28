@@ -8,6 +8,7 @@ root.title("PushUp Counter")
 root.geometry("430x130")
 
 #ToDo V2
+#HotKey reset
 #Grafika
 #Logo
 #Gui
