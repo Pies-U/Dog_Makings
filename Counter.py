@@ -45,7 +45,7 @@ def unmap(event):
         root.deiconify()
 
 def AddToLog(func_name):
-    with open("C:/Log.txt", "a") as Log:
+    with open("Log.txt", "a") as Log:
         Log.write(os.linesep)
         Log.write(f"action called - " + func_name + " - at - " + str(time.asctime()))
 
