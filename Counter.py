@@ -26,14 +26,14 @@ lerror = StringVar()
 
 
 try:
-    logFile = open("C:/Log.txt", "x")
+    logFile = open("Log.txt", "x")
     logFile.close()
 
 except FileExistsError:
     pass
 
 
-with open("C:/Log.txt", "w") as Log:
+with open("Log.txt", "w") as Log:
     Log.write(f'Operational log of pushup counter from: ' + str(time.asctime()))
     Log.write(os.linesep)
     Log.write("#LOG START#")
