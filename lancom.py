@@ -1,8 +1,7 @@
 import socket
-import threading
 
 PORT = 32222
-SERVER = "100.64.6.11"
+SERVER = input("Server's IP > ")
 ADDR = (SERVER, PORT)
 
 client = socket.socket()
