@@ -5,18 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Camino O Clock</title>
-    <script>
-      
-      let span = document.querySelector(".date_span");
-      let dateInputs = document.querySelectorAll('input');
-      dateInputs[1].valueAsDate = new Date();
-      function calculateElapse() {
-      if (!isNaN(dateInputs[0].valueAsNumber) && !isNaN(dateInputs[1].valueAsDate)) { // I don't think this is necessary, but it's robust.
-        span.textContent = "" + ((dateInputs[1].valueAsDate - dateInputs[0].valueAsDate) / (24 * 60 * 60 * 1000)) + " day(s)";
-        }
-      }
-      dateInputs.forEach(elements => elements.addEventListener('change', calculateElapse));
-      
+    <script>      
         var countDownDate = new Date("Dec 27, 2021 23:24:00").getTime();
         
 
@@ -28,20 +17,17 @@
 
           var distance = now - countDownDate;
         
-          var weeks = Math.floor(distance / (7 * 1000 * 60 * 60 * 24));
-          var days = Math.floor(distance / (1000 * 60 * 60 * 24) / (7*1000 * 60 * 60 * 24));
+          var months = Math.floor(distance / (31 * 1000 * 60 * 60 * 24));
+          var days = Math.floor((distance % (1000 * 60 * 60 * 24)) / (7*1000 * 60 * 60 * 24));
           var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
           var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
           var seconds = Math.floor((distance % (1000 * 60)) / 1000);
         
-          var seconds_raw = weeks * 604800 + days * 86400 + hours * 3600 + minutes * 60 + seconds
 
-          var elcaminos = (seconds_raw / 7320).toFixed(2)
+          var elcaminos = (distance / 7320 / 1000).toFixed(2)
 
-          document.getElementById("cuntdown").innerHTML = weeks + " tygodni " + days + " dni " + hours + " godzin "
+          document.getElementById("cuntdown").innerHTML = months + " miesiecy " + days + " dni " + hours + " godzin "
           + minutes + " minut " + seconds + " sekund ";
-
-          document.getElementById("seconds_raw").innerHTML = seconds_raw + " sekund";
 
           document.getElementById("in_elcaminos").innerHTML = elcaminos + " długości elcamino";
         
@@ -89,10 +75,8 @@
     <p class="text_top"><b>Okazuje sie że</b></p>
     <p class="text_mid">od</p>
     <p class="text_mid"><span id="cuntdown">Loading...</span></p>
-    <p class="text_mid">jesteśmy ze sobą</p>
+    <p class="text_mid">ze sobą jesteśmy</p>
     <p class="text_mid">co daje</p>
-    <p class="text_mid"><span id="seconds_raw">Loading...</span></p>
-    <p class="text_mid">albo jakieś</p>
     <p class="text_mid"><span id="in_elcaminos">Loading...</span></p>
     <p class="text_mid">ElCamino</p>
     <p class="text_mid"><b>Kocham cie gabi</b></p>
