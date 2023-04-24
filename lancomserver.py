@@ -23,10 +23,6 @@ LOCAL_HOST = "192.168.1.10" #get_ip()
 ADDR = (LOCAL_HOST, PORT)
 DISCONNECT_MESSAGE = "disconnect"
 
-
-
-#Console Code
-
 #Net Code
 
 def handle_client(conn, addr):

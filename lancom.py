@@ -1,11 +1,16 @@
 import socket
 
+#Defines
+
 connected = False
 PORT = 32222
 SERVER = input("Server's IP > ")
 if SERVER == "!q":
     quit()
 ADDR = (SERVER, PORT)
+
+
+#Setup
 
 client = socket.socket()
 try:
@@ -14,6 +19,8 @@ try:
     connected = True
 except OSError:
     print("Didnt fount that adress")
+
+#Main loop
 
 while True:
     message = input("> ").split()
