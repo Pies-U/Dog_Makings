@@ -1,0 +1,13 @@
+"""
+A simple client program that allows you to connect to a server via socket and send messages.
+
+Usage:
+    connect [ip]      : Connects to the server with the given IP.
+    send [message]    : Sends the given message to the connected server.
+                        Use -s option for sending messages in series.
+    disconnect        : Disconnects from the currently connected server.
+    quit              : Quits the program after disconnecting (if connected).
+    cls               : Clears the screen.
+
+Author: Pies-U
+"""

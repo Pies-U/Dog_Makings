@@ -1,11 +1,13 @@
 import socket
+import time
+from colorist import Color
 
 #Defines
 
 connected = False
 PORT = 32222
-SERVER = input("Server's IP > ")
-if SERVER == "!q":
+SERVER = "192.168.1.10" #input("Server's IP > ")
+if SERVER == "quit":
     quit()
 ADDR = (SERVER, PORT)
 
@@ -18,55 +20,86 @@ try:
     print(f"Succesfully connected to {SERVER}")
     connected = True
 except OSError:
-    print("Didnt fount that adress")
+    print(f"{Color.RED}[ERROR]{Color.OFF} Didnt found that adress")
+
+def is_socket_connected(sock):
+    try:
+        sock.setblocking(False)
+        sock.send(b"")
+        return True
+    except (BlockingIOError, ConnectionAbortedError):
+        return True
+    except OSError:
+        return False
+
 
 #Main loop
 
 while True:
-    message = input("> ").split()
+    try:
+        message = input("> ").split()
     
-    if len(message) > 1: 
+        if len(message) > 1: 
         
-        if message [0] == "connect":
-            if connected == False:
-                try:
-                    client.connect(ADDR)
-                    print(f"Succesfully connected to {SERVER}")
-                    connected = True
-                except OSError:
-                    print("Didnt fount that adress")
-            else:
-                print("Youre already connected dumbass")
+            if message [0] == "connect":
+                if connected == False:
+                    try:
+                        client.connect(ADDR)
+                        print(f"Succesfully connected to {SERVER}")
+                        connected = True
+                    except OSError:
+                        print(f"{Color.RED}[ERROR]{Color.OFF} Didnt found that adress")
+                else:
+                    print(f"{Color.YELLOW}[Warning]{Color.OFF} Youre already connected dumbass")
 
-        elif message[0] == "send":
+            elif message[0] == "send":
+                if connected == True:
+                    if message [1] == "-s":
+                        print("Youre in series send mode - to quit type !q")
+                        while True: 
+                            message = input("Send > ").split()
+                            try:
+                                if message[0] == "!q":
+                                    break
+                            except IndexError:
+                                print(f"{Color.YELLOW}[Warning]{Color.OFF} You need to incert a message")
+                            else:
+                                client.send((" ".join(message)).encode())
+                    else:    
+                        to_send = []
+                        for word in message:
+                            to_send.append(word)
+                        to_send.remove(message[0])
+                        client.send((" ").join(to_send).encode())
+                else:
+                    print(f"{Color.YELLOW}[Warning]{Color.OFF} Youre not connected anywhere - use connect [ip]")
+
+        elif message[0] == "disconnect":
             if connected == True:
-                if message [1] == "-s":
-                    print("Youre in series send mode - to quit type !q")
-                    while True: 
-                        message = input("Send > ").split()
-                        if message[0] == "!q":
-                            break
-                        else:
-                            client.send((" ".join(message)).encode())
-                else:    
-                    to_send = []
-                    for word in message:
-                        to_send.append(word)
-                    to_send.remove(message[0])
-                    client.send((" ").join(to_send).encode())
+                client.send((" ".join(message)).encode())
+                print(f"Succesfully disconnected from {SERVER}")
+                connected = False
             else:
-                print("Youre not connected anywhere - use connect [ip]")
+                print(f"{Color.YELLOW}[Warning]{Color.OFF} Youre not connected anywhere - use connect [ip]")
 
-    elif message[0] == "disconnect":
-        if connected == True:
-            client.send((" ".join(message)).encode())
+        elif message[0] == "quit":
+            if connected:
+                client.send(str("disconnect").encode())
+            print(f"{Color.RED}Task Failed Succesfully{Color.OFF}")
+            break
+
+        elif message[0] == "cls":
+            print('\x1bc')
+
         else:
-            print("Youre not connected anywhere - use connect [ip]")
+            print(f"{Color.YELLOW}[Warning]{Color.OFF} - User is a dumb bitch")
 
-    elif message[0] == "quit":
-        if connected:
-            client.send(str("disconnect").encode())
-        break
-
-    else:
-        print("ERROR - User is a dumb bitch")
+    except (ConnectionResetError, ConnectionAbortedError, socket.timeout):
+        print(f"{Color.RED}[ERROR]{Color.OFF} Lost connection to server. Reconnecting...")
+        time.sleep(5)
+        client.connect(ADDR)
+        if is_socket_connected(client) == True:
+            print(f"Successfully reconnected to {SERVER}")
+        else:
+            print(f"{Color.RED}[ERROR]{Color.OFF} Lost connection to server. Reconnecting Failed")
+            time.sleep(5)
