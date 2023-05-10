@@ -10,7 +10,7 @@ SERVER = "192.168.1.10" #input("Server's IP > ")
 if SERVER == "quit":
     quit()
 ADDR = (SERVER, PORT)
-
+commands = ["disconnect","connect","quit","cls"]
 
 #Setup
 
@@ -65,6 +65,8 @@ while True:
                                 print(f"{Color.YELLOW}[Warning]{Color.OFF} You need to incert a message")
                             else:
                                 client.send((" ".join(message)).encode())
+                    elif message[1] in commands:
+                        print(f"{Color.YELLOW}[Warning]{Color.OFF} - User is a dumb bitch - you don't use control commands in send you stupid dumb fuck - go stir some gel using a wooden spatula")
                     else:    
                         to_send = []
                         for word in message:
@@ -91,6 +93,18 @@ while True:
         elif message[0] == "cls":
             print('\x1bc')
 
+        elif message[0] == "help":
+            print("")
+            print("Usage:")
+            print("connect [ip]      : Connects to the server with the given IP.")
+            print("send [message]    : Sends the given message to the connected server.")
+            print("                    Use -s option for sending messages in series.")
+            print("disconnect        : Disconnects from the currently connected server.")
+            print("quit              : Quits the program after disconnecting (if connected).")
+            print("cls               : Clears the screen.")
+            print("")
+        
+        #Command not found
         else:
             print(f"{Color.YELLOW}[Warning]{Color.OFF} - User is a dumb bitch")
 
