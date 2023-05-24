@@ -46,7 +46,20 @@ def get_resoult(type,sterylise=False):
 
     return to_send
 
-get_input()
+def del_input(type):
+    if type == "command":
+        command = []
 
-res = get_resoult("arguments", False)
-print(res)
+    elif type == "arguments":
+        arguments = []
+
+    elif type == "text":
+        text = []
+
+    elif type == "all":
+        command = []
+        arguments = []
+        text = []
+
+    else:
+        print("Del Error")
