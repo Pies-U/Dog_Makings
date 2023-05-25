@@ -2,6 +2,12 @@ command = []
 arguments = []
 text = []
 
+def steryliseinput(_input):
+    if type(_input) == list:
+        _input = " ".join(e for e in _input)
+        return _input
+
+
 def get_input(input_prefix="> ", argument_prefix="-"):
     
     global command
@@ -38,8 +44,8 @@ def get_resoult(type,sterylise=False):
     elif type == "text":
         content = text
 
-    if sterylise and len(content) > 1:
-        to_send = " ".join(content)
+    if sterylise and len(content) >= 1:
+        to_send = steryliseinput(content)
     
     else:
         to_send = content
@@ -47,6 +53,11 @@ def get_resoult(type,sterylise=False):
     return to_send
 
 def del_input(type):
+    
+    global command
+    global arguments
+    global text
+
     if type == "command":
         command = []
 
