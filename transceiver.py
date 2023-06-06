@@ -44,26 +44,26 @@ if mode == "r" or "R":
 
 elif mode == "s" or "S":
     connected = False
-PORT = 32222
-SERVER = "192.168.1.20" #input("Server's IP > ")
-if SERVER == "quit":
-    quit()
-ADDR = (SERVER, PORT)
-commands = ["disconnect","connect","quit","cls"]
+    PORT = 32222
+    SERVER = "192.168.1.20" #input("Server's IP > ")
+    if SERVER == "quit":
+        quit()
+    ADDR = (SERVER, PORT)
+    commands = ["disconnect","connect","quit","cls"]
 
-#Setup
+    #Setup
 
-client = socket.socket()
-try:
-    client.connect(ADDR)
-    print(f"Succesfully connected to {SERVER}")
-    connected = True
-except OSError:
-    print(f"{Color.RED}[ERROR]{Color.OFF} Didnt found that adress")
+    client = socket.socket()
+    try:
+        client.connect(ADDR)
+        print(f"Succesfully connected to {SERVER}")
+        connected = True
+    except OSError:
+        print(f"{Color.RED}[ERROR]{Color.OFF} Didnt found that adress")
 
-while connected:
-    _, frame = cv2.read()
-    client.send(frame)
+    while connected:
+        _, frame = cv2.read()
+        client.send(frame)
 
 else:
     print(f"{Color.YELLOW}[Warning]{Color.OFF} - User is a dumb bitch")
