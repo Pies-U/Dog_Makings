@@ -39,7 +39,7 @@ while True:
     _, frame = cap.read()
 
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+    faces = face_cascade.detectMultiScale(gray, 1.3, 4)
 
     for (x, y, width, height) in faces:
         pass
