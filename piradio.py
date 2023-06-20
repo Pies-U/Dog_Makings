@@ -89,7 +89,7 @@ mixer.init()
 
 root = Tk()
 root.geometry('720x260')
-root.title('PythonGeeks Music Player')
+root.title('PyRadio Beta')
 root.resizable(0, 0)
 
 song_frame = LabelFrame(root, text='Current Song', bg='LightGrey', width=420, height=110)
