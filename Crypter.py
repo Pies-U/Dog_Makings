@@ -3,10 +3,19 @@ import tkinter.scrolledtext as st
 import rsa
 
 # Public Key Generation
-publickey, privatekey = rsa.newkeys(1024)
-publickey = publickey.save_pkcs1("PEM")
-privatekey = privatekey.save_pkcs1("PEM")
+try:
+    with open("public.pem","rb") as f:
+        publickey = f.read()
 
+    with open("private.pem","rb") as f:
+        privatekey = f.read()
+
+except FileNotFoundError:
+    print("KeysFileDoesNotExist")
+
+#Keys validation
+if publickey == " " or publickey == "" or privatekey == " " or privatekey == "":
+    print("KeyError")
 
 def encrypt():
     encrypted_text.delete("1.0", tk.END)
@@ -18,7 +27,7 @@ def decrypt():
 
 root = tk.Tk()
 root.geometry('700x640')
-root.title('CrypTer Build 1.0')
+root.title('CrypTer Build 2.0')
 root.resizable(0, 0)
 
 # Frames Define
